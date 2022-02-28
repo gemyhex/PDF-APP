@@ -40,7 +40,6 @@ export default {
     onFileChange(event) {
       // let pdfs = this.$refs.files.files;
       this.pdfs = event.target.files;
-      console.log(this.pdfs);
     },
     async UploadFiles() {
       const formData = new FormData();
@@ -52,10 +51,8 @@ export default {
       axios
         .post(this.url, formData, { headers })
         .then((res) => {
-          // res.data.result.forEach((element, i) => {
-          //   console.log("elements: ", i + 1);
-          // });
-          this.$store.state.headlines = res.data.result.length;
+          console.log(res.data.result);
+          this.$store.state.result = res.data.result;
         })
         .catch(console.error);
     },
