@@ -3,7 +3,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header" :id="'heading' + id">
         <button
-          class="accordion-button"
+          class="accordion-button collapsed"
           type="button"
           data-bs-toggle="collapse"
           :data-bs-target="'#collapse' + id"
@@ -41,12 +41,8 @@ export default {
 <style scoped>
 .drag-zone {
   width: 500px;
+  max-width: 500px;
+  max-height: 100vh;
   display: flex;
-}
-.accordion-button::after {
-  background-image: none;
-}
-.accordion-button::not(.collapsed):after {
-  background-image: none;
 }
 </style>

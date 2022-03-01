@@ -1,11 +1,17 @@
 <template>
   <div class="list">
     <div class="drag-zone">
-      <drag v-for="(n, i) in head" :data="n" :class="'item' + i" :key="n.id">
+      <drag
+        v-for="(con, idx, i) in head"
+        :data="{ idx, con }"
+        class="item"
+        :key="idx"
+      >
         <HeadlineComp
-          :title="n.title"
-          :content="n.content"
-          :id="n.id"
+          :title="idx"
+          :content="con"
+          :id="`${idx.slice(0, 3).trim() + i}`"
+          class="item"
         ></HeadlineComp>
       </drag>
     </div>
@@ -17,10 +23,10 @@
         @reorder="$event.apply(items)"
       >
         <template v-slot:item="{ item }">
-          <drag class="item" :key="item.id">{{ item.title }}</drag>
+          <drag class="item draggable" :key="item.idx">{{ item.idx }}</drag>
         </template>
         <template v-slot:feedback="{ data }">
-          <div class="item feedback" :key="data.id">{{ data.title }}</div>
+          <div class="item feedback" :key="data.idx">{{ data.idx }}</div>
         </template>
       </drop-list>
     </div>
@@ -47,6 +53,7 @@ export default {
   methods: {
     onInsert(event) {
       this.items.splice(event.index, 0, event.data);
+      console.log(this.items);
     },
   },
 };
@@ -56,15 +63,15 @@ export default {
 .list {
   border: 1px solid black;
   margin: 100px auto;
-  width: 600px;
-  display: flex;
+  min-width: 500px;
 }
-
 .item {
-  padding: 10px;
-  margin: 10px;
-  width: fit-content;
-  background-color: rgb(220, 220, 255);
+  padding: 2px;
+  margin: 2px;
+}
+.draggable {
+  background: lightgreen;
+  padding: 8px;
 }
 .dnd-drop {
   min-width: 100px;
