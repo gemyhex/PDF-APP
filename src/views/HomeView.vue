@@ -1,46 +1,47 @@
 <template>
   <div class="home container-fluid">
+    <nav-bar @change="onChange($event)"></nav-bar>
     <div class="row page">
-      <div class="col-4 left-sec">
+      <div class="col right-sec" v-if="!result">
         <div class="container">
-          <form-comp @change="onChange($event)"></form-comp>
-        </div>
-      </div>
-      <div class="col-8 right-sec">
-        <div class="container">
-          <img src="@/assets/pdf.svg" alt="logo" />
-          <div class="logo"></div>
-        </div>
-      </div>
-    </div>
-    <div class="row overlay" v-if="result">
-      <modal-comp>
-        <div class="content">
-          <div class="headlines">
-            <h2 class="text-center">
-              {{ company ? company : "" }}
-            </h2>
-            <headlines-comp
-              v-for="(head, i) in result"
-              :key="i"
-              :head="head"
-            ></headlines-comp>
+          <div class="logo">
+            <img src="@/assets/pdf.svg" alt="logo" />
+            <div class="types">
+              <h3>Welcome To PDF Compare</h3>
+              <p>PDF Compare Is A Tool For Compare PDF Files.</p>
+            </div>
           </div>
         </div>
-      </modal-comp>
+      </div>
+      <div class="col right-sec" v-else>
+        <div class="content">
+          <modal-comp>
+            <div class="headlines row">
+              <h2>
+                {{ company ? company : "" }}
+              </h2>
+              <headlines-comp
+                v-for="(head, i) in result"
+                :key="i"
+                :head="head"
+              ></headlines-comp>
+            </div>
+          </modal-comp>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import FormComp from "@/components/FormComp.vue";
 import HeadlinesComp from "@/components/HeadlinesComp.vue";
 import ModalComp from "@/components/ModalComp.vue";
+import NavBar from "@/components/NavBar.vue";
 // @ is an alias to /src
 
 export default {
   name: "HomeView",
-  components: { FormComp, HeadlinesComp, ModalComp },
+  components: { HeadlinesComp, ModalComp, NavBar },
   methods: {
     onChange(res) {
       this.result = res.result;
@@ -59,13 +60,12 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  max-width: 100vw;
-  height: 100vh;
   position: relative;
   padding: 0;
   .page {
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 60px);
+    margin-top: 60px;
     margin: 0;
     padding: 0;
     .right-sec,
@@ -81,21 +81,14 @@ export default {
     .right-sec {
       background: rgba(216, 182, 182, 0.486);
       img {
-        width: 400px;
+        width: 40%;
       }
     }
   }
-  .overlay {
-    width: 100%;
-    height: 100%;
-    background: red;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0;
-  }
   .headlines {
-    display: flex;
+    h2 {
+      text-align: center;
+    }
   }
 }
 </style>

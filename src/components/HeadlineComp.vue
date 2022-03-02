@@ -37,12 +37,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.drag-zone {
-  width: 500px;
-  max-width: 500px;
-  max-height: 100vh;
-  display: flex;
-}
-</style>

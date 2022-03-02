@@ -1,22 +1,16 @@
 <template>
-  <form class="form" @submit.prevent="UploadFiles">
-    <div class="upload">
-      <div class="colu mb-3">
-        <input
-          type="text"
-          class="form-control text-center"
-          id="company_name"
-          v-model="company_name"
-          placeholder="Company Name"
-        />
-      </div>
-      <div class="colu mb-3">
+  <div class="header d-flex justify-content-between">
+    <div class="logo">
+      <img src="@/assets/pdf.svg" alt="" />
+    </div>
+    <div class="colu">
+      <div class="btn-choose" v-if="!loading">
         <input
           type="file"
           id="file"
           multiple
           required
-          @change="onFileChange"
+          @change="UploadFiles"
           accept=".pdf,.doc"
           ref="pdfs"
         />
@@ -24,13 +18,16 @@
           <span>Choose PDF Files</span>
         </label>
       </div>
+      <div class="btn-choose" v-else>
+        <button type="submit" class="btn-send" disabled>
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </button>
+      </div>
     </div>
-    <div class="colu mb-3 text-center">
-      <button type="submit" class="btn btn-primary btn-send">Send</button>
-    </div>
-  </form>
+  </div>
 </template>
-
 <script>
 import axios from "axios";
 export default {
@@ -39,13 +36,13 @@ export default {
       company_name: "",
       pdfs: [],
       url: "https://pdf.smarttechno.co/api/pdf",
+      loading: false,
     };
   },
   methods: {
-    onFileChange(event) {
+    async UploadFiles(event) {
       this.pdfs = event.target.files;
-    },
-    async UploadFiles() {
+      this.loading = true;
       const formData = new FormData();
       for (var i = 0; i < this.$refs.pdfs.files.length; i++) {
         let file = this.$refs.pdfs.files[i];
@@ -58,6 +55,7 @@ export default {
         .then((res) => {
           this.$store.state.result = res.data;
           this.$emit("change", res.data);
+          this.loading = false;
         })
         .catch(console.error);
     },
@@ -66,32 +64,27 @@ export default {
 </script>
 
 <style lang="scss">
-.form {
+.header {
+  width: 100%;
+  height: 60px;
   padding: 10px;
-
-  #company_name {
-    width: 100%;
-    height: 50px;
-    margin: auto;
-    border-radius: 0;
-  }
-
-  .upload {
-    width: 50%;
-    // background: #eee;
-    margin: 10px auto;
-    padding: 10px;
-    // box-shadow: 0 7px 5px 0 #4784f577;
-  }
-  .btn-send {
-    width: 50%;
-    height: 50px;
-    border-radius: 0;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  img {
+    width: 60px;
   }
 }
-.box {
-  width: 100%;
-  min-height: 10px;
+.btn-choose {
+  .btn-send {
+    border: none;
+    color: #fff;
+    cursor: not-allowed;
+    font-weight: 500;
+    outline: none;
+    width: 200px;
+    height: 40px;
+    padding: 5px;
+    background-color: #4784f5;
+  }
 }
 [type="file"] {
   height: 0;
@@ -104,16 +97,11 @@ export default {
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
-  display: inline-block;
-  font-size: inherit;
   font-weight: 500;
-  margin-bottom: 1rem;
   outline: none;
-  padding: 1rem 50px;
-  position: relative;
-  transition: all 0.3s;
-  vertical-align: middle;
-  width: 100%;
+  padding: 0.5rem 15px;
+  width: 200px;
+  height: 40px;
 
   &.btn-3 {
     background-color: #4784f5;
@@ -127,29 +115,8 @@ export default {
       width: 100%;
     }
 
-    &::before {
-      color: #fff;
-      content: "\F296";
-      font-size: 130%;
-      height: 100%;
-      left: 0;
-      line-height: 2.6;
-      position: absolute;
-      top: -180%;
-      transition: all 0.3s;
-      width: 100%;
-    }
-
     &:hover {
       background-color: darken(#6d9aee, 30%);
-
-      span {
-        transform: translateY(300%);
-      }
-
-      &::before {
-        top: 0;
-      }
     }
   }
 }
