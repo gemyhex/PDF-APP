@@ -34,14 +34,13 @@ export default {
   data() {
     return {
       company_name: "",
-      pdfs: [],
+      result: null,
       url: "https://pdf.smarttechno.co/api/pdf",
       loading: false,
     };
   },
   methods: {
-    async UploadFiles(event) {
-      this.pdfs = event.target.files;
+    async UploadFiles() {
       this.loading = true;
       const formData = new FormData();
       for (var i = 0; i < this.$refs.pdfs.files.length; i++) {
@@ -53,8 +52,8 @@ export default {
       axios
         .post(this.url, formData, { headers })
         .then((res) => {
-          this.$store.state.result = res.data;
-          this.$emit("change", res.data);
+          this.result = res.data.result;
+          this.$emit("onChange", this.result);
           this.loading = false;
         })
         .catch(console.error);

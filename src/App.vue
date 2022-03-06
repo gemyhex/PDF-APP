@@ -23,4 +23,10 @@
 .accordion-button::not(.collapsed):after {
   background-image: none;
 }
+.table tr th,
+.table tr td {
+  border: 2px solid black;
+  text-align: center;
+  padding: 2px;
+}
 </style>
