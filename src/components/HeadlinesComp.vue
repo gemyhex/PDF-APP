@@ -64,6 +64,11 @@ export default {
       vals: [],
     };
   },
+  mounted() {
+    this.files.push(this.result);
+    // console.log(this.files);
+    console.log(this.files.length);
+  },
   methods: {
     addKeys(ev) {
       let myElement = ev.target.parentElement.parentElement;
@@ -77,32 +82,33 @@ export default {
       }
     },
     insertHeads(table) {
-      let row = document.createElement("tr");
       this.keys.forEach((ele) => {
+        let row = document.createElement("tr");
         let heading = document.createElement("th");
-        let content = document.createElement("td");
         heading.innerHTML = ele;
-        let el_idx = this.keys.findIndex((el) => el == ele);
-        content.innerHTML = this.vals[el_idx];
         row.appendChild(heading);
-        row.appendChild(content);
+        let el_idx = this.keys.findIndex((el) => el == ele);
+        this.insertData(el_idx, row);
         table.appendChild(row);
       });
     },
-    // insertData(table) {
-    //   let row = document.createElement("tr");
-    //   this.vals.forEach((ele) => {
-    //     let heading = document.createElement("td");
-    //     heading.innerHTML = ele;
-    //     row.appendChild(heading);
-    //   });
-    //   table.appendChild(row);
-    // },
+    insertData(st_id, row) {
+      let col = document.createElement("td");
+      col.innerHTML = this.vals[st_id];
+      row.appendChild(col);
+      // console.log(col.innerHTML);
+      // this.vals.forEach((ele) => {
+      //   let heading = document.createElement("td");
+      //   heading.innerHTML = ele;
+      //   row.appendChild(heading);
+      // });
+    },
     createTable() {
       let table = document.querySelector("table");
       this.insertHeads(table);
       // this.insertData(table);
       document.querySelector(".table").appendChild(table);
+      // console.log("result: ", this.result);
     },
     deleteElement(ev) {
       let ele = ev.target.parentElement.innerText.slice(0, -1).trim();
