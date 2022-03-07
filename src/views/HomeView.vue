@@ -30,7 +30,7 @@
               v-for="(file, ind) in result"
               :key="ind"
               :result="file"
-              class="col"
+              class="col hline"
             ></HeadlinesComp>
           </div>
         </div>
@@ -55,12 +55,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              <div class="table table-bordered table-striped">
-                <table>
-                  <thead></thead>
-                  <tbody></tbody>
-                </table>
-              </div>
+              <div class="tableC row"></div>
             </div>
             <div class="modal-footer">
               <button
@@ -160,6 +155,9 @@ export default {
       }
       img {
         width: 40%;
+      }
+      .hline:not(:last-child) {
+        border-right: 2px solid green;
       }
     }
   }

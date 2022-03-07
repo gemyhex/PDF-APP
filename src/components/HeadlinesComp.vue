@@ -81,33 +81,50 @@ export default {
         return 0;
       }
     },
-    insertHeads(table) {
+    insertHeads(place) {
+      let cont = document.createElement("ul");
+      cont.className = "col";
       this.keys.forEach((ele) => {
-        let row = document.createElement("tr");
-        let heading = document.createElement("th");
-        heading.innerHTML = ele;
-        row.appendChild(heading);
+        let head = document.createElement("li");
+        head.className = "row";
+        let tit = document.createElement("span");
+        tit.className = "col-3 col-lg-2 col-md-3 col-sm-3 headTitle";
+        let con = document.createElement("span");
+        con.className = "col-9 col-lg-10 col-md-9 col-sm-9 headContent";
+        tit.innerHTML = ele;
         let el_idx = this.keys.findIndex((el) => el == ele);
-        this.insertData(el_idx, row);
-        table.appendChild(row);
+        con.innerHTML = this.vals[el_idx];
+        head.appendChild(tit);
+        head.appendChild(con);
+        cont.appendChild(head);
+        place.appendChild(cont);
+        // let row = document.createElement("tr");
+        // let heading = document.createElement("th");
+        // heading.innerHTML = ele;
+        // row.appendChild(heading);
+        // let el_idx = this.keys.findIndex((el) => el == ele);
+        // this.insertData(el_idx, row);
+        // table.appendChild(row);
       });
     },
-    insertData(st_id, row) {
-      let col = document.createElement("td");
-      col.innerHTML = this.vals[st_id];
-      row.appendChild(col);
+    insertData(place) {
+      // let col = document.createElement("td");
+      // col.innerHTML = this.vals[st_id];
+      // row.appendChild(col);
       // console.log(col.innerHTML);
-      // this.vals.forEach((ele) => {
-      //   let heading = document.createElement("td");
-      //   heading.innerHTML = ele;
-      //   row.appendChild(heading);
-      // });
+      let cont = document.createElement("ul");
+      this.vals.forEach((ele) => {
+        let head = document.createElement("li");
+        let tit = document.createElement("span");
+        tit.innerHTML = ele;
+        cont.appendChild(head);
+        place.appendChild(cont);
+      });
     },
     createTable() {
-      let table = document.querySelector("table");
-      this.insertHeads(table);
-      // this.insertData(table);
-      document.querySelector(".table").appendChild(table);
+      let cont = document.querySelector(".tableC");
+      this.insertHeads(cont);
+      // this.insertData(cont);
       // console.log("result: ", this.result);
     },
     deleteElement(ev) {
@@ -145,8 +162,8 @@ tr:nth-child(even) {
   float: left;
 }
 .list {
-  width: 20%;
-  float: right;
+  width: 25%;
+  float: left;
 }
 .accordion-button:not(.collapsed) {
   background: transparent;
