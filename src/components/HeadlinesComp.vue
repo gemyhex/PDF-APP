@@ -69,8 +69,6 @@ export default {
   },
   mounted() {
     this.files.push(this.result);
-    // console.log(this.files);
-    console.log(this.files.length);
   },
   methods: {
     addKeys(ev) {
