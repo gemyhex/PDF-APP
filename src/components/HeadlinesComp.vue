@@ -35,10 +35,12 @@
       </div>
     </div>
     <div class="list" v-if="keys.length != 0">
-      <button class="btn btn-primary" @click="createTable">Add To Table</button>
+      <button class="btn btn-primary" @click="createTable">
+        Add To Comparison
+      </button>
       <ul class="list-group">
         <li class="list-group-item" v-for="(key, i) in keys" :key="i">
-          <div class="d-flex justify-content-around align-items-center">
+          <div class="d-flex justify-content-between align-items-center">
             <span>{{ key }}</span>
             <span class="delete" @click="deleteElement($event)">&times;</span>
           </div>
@@ -62,6 +64,7 @@ export default {
       files: [],
       keys: [],
       vals: [],
+      process: true,
     };
   },
   mounted() {
@@ -98,25 +101,15 @@ export default {
         head.appendChild(con);
         cont.appendChild(head);
         place.appendChild(cont);
-        // let row = document.createElement("tr");
-        // let heading = document.createElement("th");
-        // heading.innerHTML = ele;
-        // row.appendChild(heading);
-        // let el_idx = this.keys.findIndex((el) => el == ele);
-        // this.insertData(el_idx, row);
-        // table.appendChild(row);
       });
     },
     insertData(place) {
-      // let col = document.createElement("td");
-      // col.innerHTML = this.vals[st_id];
-      // row.appendChild(col);
-      // console.log(col.innerHTML);
       let cont = document.createElement("ul");
       this.vals.forEach((ele) => {
         let head = document.createElement("li");
         let tit = document.createElement("span");
         tit.innerHTML = ele;
+        tit.className = "col-9 col-lg-10 col-md-9 col-sm-9 headContent";
         cont.appendChild(head);
         place.appendChild(cont);
       });
@@ -124,7 +117,11 @@ export default {
     createTable() {
       let cont = document.querySelector(".tableC");
       this.insertHeads(cont);
-      // this.insertData(cont);
+      cont
+        .querySelectorAll(".col:not(:first-child) .row .headTitle")
+        .forEach((titl) => {
+          titl.remove();
+        });
       // console.log("result: ", this.result);
     },
     deleteElement(ev) {

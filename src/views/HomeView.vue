@@ -55,7 +55,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              <div class="tableC row"></div>
+              <div class="tableC"></div>
             </div>
             <div class="modal-footer">
               <button
@@ -107,10 +107,8 @@ export default {
       console.log("emit: ", val);
     },
     EmptyTable() {
-      let thead = document.querySelector("table thead");
-      let tbody = document.querySelector("table tbody");
-      thead.innerHTML = "";
-      tbody.innerHTML = "";
+      let table = document.querySelector(".tableC");
+      table.innerHTML = "";
     },
     GetTheFile() {
       var doc = new jsPDF({
