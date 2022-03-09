@@ -64,6 +64,7 @@ export default {
       files: [],
       keys: [],
       vals: [],
+      leng: 0,
       process: true,
     };
   },
@@ -121,11 +122,12 @@ export default {
     createTable() {
       let cont = document.querySelector(".tableC");
       this.insertHeads(cont);
-      // cont
-      //   .querySelectorAll(".col:not(:first-child) .row .headTitle")
-      //   .forEach((titl) => {
-      //     titl.remove();
-      //   });
+      this.leng = 0;
+      cont.querySelectorAll(".tableC tr:first-child td").forEach((td) => {
+        this.leng += 1;
+        td.style.width = `calc(100/${this.leng})`;
+      });
+      console.log(this.leng);
     },
     deleteElement(ev) {
       let ele = ev.target.parentElement.innerText.slice(0, -1).trim();
@@ -136,13 +138,10 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .delete {
   font-size: 1.5rem;
   cursor: pointer;
-}
-tr:nth-child(even) {
-  background-color: #d6eeee;
 }
 .accordion-header {
   display: flex;
@@ -165,6 +164,7 @@ tr:nth-child(even) {
   width: 25%;
   float: left;
 }
+
 .accordion-button:not(.collapsed) {
   background: transparent;
 }

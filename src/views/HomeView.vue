@@ -94,7 +94,8 @@ export default {
     return {
       result: null,
       company: "",
-      table_raw: "",
+      files: [],
+      len: null,
       loading: false,
     };
   },
@@ -133,7 +134,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .home {
   position: relative;
   padding: 0;
@@ -158,6 +159,18 @@ export default {
       }
       .hline:not(:last-child) {
         border-right: 2px solid green;
+      }
+    }
+  }
+  .tableC {
+    text-align: start;
+    padding: 2px;
+    tr {
+      border-bottom: 1px solid black;
+      th,
+      td {
+        border: 1px solid black;
+        padding: 3px 7px;
       }
     }
   }

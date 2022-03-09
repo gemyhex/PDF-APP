@@ -39,18 +39,6 @@
 .accordion-button::not(.collapsed):after {
   background-image: none;
 }
-.tableC {
-  text-align: start;
-  padding: 2px;
-  tr {
-    border-bottom: 1px solid black;
-    th,
-    td {
-      border: 1px solid black;
-      padding: 3px 7px;
-    }
-  }
-}
 
 .row {
   margin-left: 0 !important;
