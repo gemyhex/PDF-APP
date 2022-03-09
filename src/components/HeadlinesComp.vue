@@ -83,44 +83,49 @@ export default {
       }
     },
     insertHeads(place) {
-      let cont = document.createElement("ul");
-      cont.className = "col";
-      this.keys.forEach((ele) => {
-        let head = document.createElement("li");
-        head.className = "row";
-        let tit = document.createElement("span");
-        tit.className = "col-3 col-lg-2 col-md-3 col-sm-3 headTitle";
-        let con = document.createElement("span");
-        con.className = "col-9 col-lg-10 col-md-9 col-sm-9 headContent";
-        tit.innerHTML = ele;
-        let el_idx = this.keys.findIndex((el) => el == ele);
-        con.innerHTML = this.vals[el_idx];
-        head.appendChild(tit);
-        head.appendChild(con);
-        cont.appendChild(head);
-        place.appendChild(cont);
-      });
+      // cont.className = "col";
+      if (place.children.length == 0) {
+        this.keys.forEach((ele) => {
+          let cont = document.createElement("tr");
+          let head = document.createElement("th");
+          let idx = this.keys.findIndex((el) => el == ele);
+          head.innerHTML = ele;
+          cont.appendChild(head);
+          this.insertData(cont, idx);
+          place.appendChild(cont);
+          // head.className = "row";
+          // let tit = document.createElement("span");
+          // tit.className = "col-3 col-lg-2 col-md-3 col-sm-3 headTitle";
+          // let con = document.createElement("span");
+          // con.className = "col-9 col-lg-10 col-md-9 col-sm-9 headContent";
+          // con.innerHTML = this.vals[el_idx];
+          // head.appendChild(tit);
+          // head.appendChild(con);
+        });
+      } else {
+        let cont = document.querySelectorAll(".tableC tr");
+        cont.forEach((tr, i) => {
+          this.insertData(tr, i);
+        });
+      }
     },
-    insertData(place) {
-      let cont = document.createElement("ul");
-      this.vals.forEach((ele) => {
-        let head = document.createElement("li");
-        let tit = document.createElement("span");
-        tit.innerHTML = ele;
-        tit.className = "col-9 col-lg-10 col-md-9 col-sm-9 headContent";
-        cont.appendChild(head);
-        place.appendChild(cont);
-      });
+    insertData(row, idx) {
+      let head = document.createElement("td");
+      head.innerHTML = this.vals[idx];
+      row.appendChild(head);
+      // this.vals.forEach((ele) => {
+      // let tit = document.createElement("span");
+      // tit.className = "col-9 col-lg-10 col-md-9 col-sm-9 headContent";
+      // });
     },
     createTable() {
       let cont = document.querySelector(".tableC");
       this.insertHeads(cont);
-      cont
-        .querySelectorAll(".col:not(:first-child) .row .headTitle")
-        .forEach((titl) => {
-          titl.remove();
-        });
-      // console.log("result: ", this.result);
+      // cont
+      //   .querySelectorAll(".col:not(:first-child) .row .headTitle")
+      //   .forEach((titl) => {
+      //     titl.remove();
+      //   });
     },
     deleteElement(ev) {
       let ele = ev.target.parentElement.innerText.slice(0, -1).trim();

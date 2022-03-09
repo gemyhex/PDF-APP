@@ -55,7 +55,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              <div class="tableC"></div>
+              <table class="tableC table-bordered"></table>
             </div>
             <div class="modal-footer">
               <button
@@ -113,10 +113,11 @@ export default {
     GetTheFile() {
       var doc = new jsPDF({
         orientation: "p", // landscape
-        unit: "mm", // points, pixels won't work properly
+        unit: "pt", // points, pixels won't work properly
         format: [window.outerWidth, window.innerHeight], // set needed dimensions for any element
       });
-      let table = document.querySelector(".table");
+      doc.setFontSize(12);
+      let table = document.querySelector(".tableC");
       this.table_raw = table.innerHTML;
 
       doc.html(table, {
@@ -125,6 +126,7 @@ export default {
         },
         x: 10,
         y: 10,
+        // autoPaging: "text",
       });
     },
   },
