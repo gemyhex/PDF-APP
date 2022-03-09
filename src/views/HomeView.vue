@@ -137,7 +137,8 @@ export default {
 <style lang="scss">
 .home {
   position: relative;
-  padding: 0;
+  padding-left: 0;
+  padding-right: 0;
   .page {
     width: 100%;
     min-height: calc(100vh - 60px);
