@@ -112,11 +112,11 @@ export default {
     },
     GetTheFile() {
       var doc = new jsPDF({
-        orientation: "p", // landscape
-        unit: "pt", // points, pixels won't work properly
-        format: [window.outerWidth, window.innerHeight], // set needed dimensions for any element
+        orientation: "l", // landscape
+        unit: "mm", // points, pixels won't work properly
+        format: [window.innerWidth, window.innerHeight], // set needed dimensions for any element
       });
-      doc.setFontSize(12);
+      doc.setFontSize(1);
       let table = document.querySelector(".tableC");
       this.table_raw = table.innerHTML;
 
@@ -126,7 +126,7 @@ export default {
         },
         x: 10,
         y: 10,
-        // autoPaging: "text",
+        autoPaging: "text",
       });
     },
   },
